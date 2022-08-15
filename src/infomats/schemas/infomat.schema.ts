@@ -11,4 +11,18 @@ export class Infomat {
 }
 
 export type InfomatDocument = Infomat & Document;
-export const InfomatSchema = SchemaFactory.createForClass(Infomat);
+const InfomatSchema = SchemaFactory.createForClass(Infomat);
+InfomatSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+InfomatSchema.set('toJSON', {
+  virtuals: true,
+  transform: (doc, ret, options) => {
+    delete ret.__v;
+    ret.id = ret._id.toString();
+    delete ret._id;
+  },
+});
+
+export { InfomatSchema };
