@@ -12,7 +12,7 @@ import { InfomatsService } from './infomats.service';
 import { CreateInfomatDto } from './dto/create-infomat.dto';
 import { UpdateInfomatDto } from './dto/update-infomat.dto';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { InfoInfomatDto } from './dto/info-infomat.dto';
 
 @ApiTags('infomats')
