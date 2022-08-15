@@ -27,11 +27,7 @@ export class UsersService {
     return this.userModel.findById(id).exec();
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  findByName(username: string) {
+    return this.userModel.findOne({ username }).exec();
   }
 }
