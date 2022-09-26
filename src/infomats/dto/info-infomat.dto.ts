@@ -1,4 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
+import { IsDate } from 'class-validator';
 
 export class InfoInfomatDto {
   @ApiProperty({
@@ -28,6 +30,8 @@ export class InfoInfomatDto {
     example: '2022-07-06T20:51:21.415+00:00',
     type: Date,
   })
+  @Transform(({ value }) => new Date(value))
+  @IsDate()
   createtAt: Date;
 
   @ApiProperty({
@@ -35,5 +39,7 @@ export class InfoInfomatDto {
     example: '2022-07-06T20:51:21.415+00:00',
     type: Date,
   })
+  @Transform(({ value }) => new Date(value))
+  @IsDate()
   updatedAt: Date;
 }
