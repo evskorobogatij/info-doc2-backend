@@ -12,6 +12,9 @@ export class AuthService {
 
   async validateUser(username: string, password: string) {
     const user = await this.userService.findByName(username);
+    await new Promise((resolve) =>
+      setTimeout(resolve, Math.random() * 3000 + 2000),
+    );
     const isMatch = user ? await compare(password, user.password) : false;
     if (isMatch) {
       return { id: user.id, username: user.username };
