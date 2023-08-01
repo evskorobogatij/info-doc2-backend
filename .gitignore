@@ -36,6 +36,9 @@ lerna-debug.log*
 yarn.lock
 package-lock.json
 .env
-upload/*
+/upload
+/database
+/database_
+/data
 
 swagger-spec.json
