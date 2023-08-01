@@ -2,6 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { writeFileSync } from 'fs';
 import { AppModule } from './app.module';
+import * as dotenv from 'dotenv';
+dotenv.config();
 export * as fs from 'fs';
 
 async function bootstrap() {

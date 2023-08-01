@@ -7,12 +7,14 @@ import { InfomatsModule } from './infomats/infomats.module';
 import { FilesModule } from './files/files.module';
 import { UploadedFilesModule } from './uploaded-files/uploaded-files.module';
 import { AuthModule } from './auth/auth.module';
+import { Mongoose } from 'mongoose';
+import { MongooseConfigService } from './config/mongo.config';
 
 @Module({
   imports: [
     UsersModule,
-    MongooseModule.forRoot(`mongodb://ferrum.msch125.ru:27017/infomat`, {
-      autoCreate: true,
+    MongooseModule.forRootAsync({
+      useClass: MongooseConfigService,
     }),
     InfomatsModule,
     FilesModule,
