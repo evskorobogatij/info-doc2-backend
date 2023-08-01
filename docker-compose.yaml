@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  mongo:
+    container_name: infomat_mongo
+    image: mongo:4.4
+    volumes: 
+      - ./database:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - infomat-net
+    restart: always
+
+  dev:
+    container_name: infomat_srv_dev
+    image: infomat_srv_dev:1.0.0
+    environment:
+      MONGO_DB: mongodb://infomat_mongo:27017/infomat_dev
+      JWT_KEY: ddf57596c3d9cb40fe3cac708bc5d530f33ff034gfbb6067b51dd93bf54c2867
+    build:      
+      context: .      
+      dockerfile: ./Dockerfile
+    networks:
+      - infomat-net
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+  prod:
+    container_name: infomat_srv_prod
+    image: infomat_srv_prod:1.0.0
+    build:      
+      context: .      
+      dockerfile: ./Dockerfile
+    environment:
+      MONGO_DB: mongodb://infomat_mongo:27017/infomat
+      JWT_KEY: ddf57596c3d9cb40fe3cac708bc5d530f33ff034gfbb6067b51dd93bf54c2866
+    command: npm run start:prod
+    ports:
+      - 8300:8000
+      - 9229:9229
+    networks:
+      - infomat-net  
+    depends_on:      
+      - mongo
+    volumes:      
+      - ./data/upload:/usr/src/app/upload
+      # - .:/usr/src/app      
+      # - /usr/src/app/node_modules    
+    restart: unless-stopped  
+
+networks:
+  infomat-net:
+    driver: bridge
+
+
